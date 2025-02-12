@@ -60,7 +60,7 @@ class HistoryExport:
 
         # Background colour nd text for calculation area
         if len(calculations) <= c.MAX_CALCS:
-            calc_back = "#D5E804"
+            calc_back = "#D5E8D4"
             calc_amount = "all your"
         else:
             calc_back = "#ffe6cc"
