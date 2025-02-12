@@ -15,7 +15,7 @@ class Converter:
 
         self.all_calculations_list = ['10.0 °F is -12 °C', '20.0 °F is -7 °C',
                                       '30.0 °F is -1 °C', '40.0 °F is 4 °C',
-                                      '50.0 °F is 10 °C', '60.0 °F is 16 °C']
+                                      '50.0 °F is 10 °C']
 
         self.temp_frame = Frame(padx=10, pady=10)
         self.temp_frame.grid()
@@ -70,6 +70,23 @@ class HistoryExport:
         recent_intro_txt = (f"Below are {calc_amount} calculations"
                             f"(to the nearest degree).")
 
+        # Create string from calculations list (newest calculations first)
+        newest_first_string = ""
+        newest_first_list = list(reversed(calculations))
+
+        if len(newest_first_list) <= c.MAX_CALCS:
+
+            for item in newest_first_list[:-1]:
+                newest_first_string += item + "\n"
+
+            newest_first_string += newest_first_list[-1]
+
+        else:
+            for item in newest_first_list[:c.MAX_CALCS-1]:
+                newest_first_string += item + "\n"
+
+            newest_first_string += newest_first_list[c.MAX_CALCS-1]
+
         export_instructions_txt = ("Please push <Export> to save your calculations in "
                                    "file. If the file name already exists, it will be replaced")
         calculations = ""
@@ -78,7 +95,7 @@ class HistoryExport:
         history_labels_list = [
             ["History / Export", ("Arial", "16", "bold"), None],
             [recent_intro_txt, ("Arial", "11"), None],
-            ["calculation list", ("Arial", "14"), calc_back],
+            [newest_first_string, ("Arial", "14"), calc_back],
             [export_instructions_txt, ("Arial", "11"), None]
         ]
 
